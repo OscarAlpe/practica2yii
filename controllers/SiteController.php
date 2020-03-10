@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\Noticias;
 use yii\data\ActiveDataProvider;
+use app\models\Articulos;
 
 class SiteController extends Controller
 {
@@ -46,4 +47,23 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionArticulos()
+    {
+        $query = Articulos::find()->select("articulos.*");
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        return $this->render('articulos',[
+            "dataProvider" => $dataProvider,
+        ]);
+    }
+
+    public function actionMostrar_articulo_texto_largo($id) {
+        $articulo = Articulos::findOne($id);
+        return $this->render("articulo_texto_largo",[
+            "articulo" => $articulo,
+        ]);
+    }
 }
