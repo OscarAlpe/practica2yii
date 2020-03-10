@@ -66,4 +66,23 @@ class SiteController extends Controller
             "articulo" => $articulo,
         ]);
     }
+    
+    public function actionTodo() {
+        $queryNoticias = Noticias::find()->select("noticias.*");
+        
+        $dataProviderNoticias = new ActiveDataProvider([
+            'query' => $queryNoticias,
+        ]);
+        
+        $queryArticulos = Articulos::find()->select("articulos.*");
+        
+        $dataProviderArticulos = new ActiveDataProvider([
+            'query' => $queryArticulos,
+        ]);
+        
+        return $this->render("todo", [
+            "dataProviderNoticias" => $dataProviderNoticias,
+            "dataProviderArticulos" => $dataProviderArticulos,
+        ]);
+    }
 }
