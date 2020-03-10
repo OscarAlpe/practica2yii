@@ -7,6 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\Noticias;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -31,9 +33,17 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionNoticias()
     {
-        return $this->render('index');
+        $query = Noticias::find()->select("noticias.*");
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+        return $this->render('noticias',[
+            "dataProvider" => $dataProvider,
+        ]);
     }
 
 }
